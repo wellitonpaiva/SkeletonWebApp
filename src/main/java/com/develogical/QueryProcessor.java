@@ -12,8 +12,19 @@ public class QueryProcessor {
           + "writer in the English language and the world's pre-eminent dramatist.";
     } else if (query.toLowerCase().contains("what is your name?")) {
       return "Team Learning eXPerience";
+    } else if (query.toLowerCase().contains("which of the following numbers is the largest:")) {
+      String s = query.replace("Which of the following numbers is the largest: " , "").replace("?", "");
+      String[] numbers = s.split(", ", 0);
+      int max = 0;
+      for (int i = 0; i < numbers.length; i++) {
+        int current = Integer.parseInt(numbers[i]);
+        if (max < current) max = current;
+      }
+      return String.valueOf(max);
     }
 
     return "";
   }
+
+  
 }

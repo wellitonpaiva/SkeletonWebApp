@@ -25,4 +25,10 @@ public class QueryProcessorTest {
   public void whatIsYourName() throws Exception {
     assertThat(queryProcessor.process("What is your name?"), containsString("Team Learning eXPerience"));
   }
+
+  @Test
+  public void largestNumber() throws Exception {
+    assertThat(queryProcessor.process("Which of the following numbers is the largest: 20, 28, 80?"), 
+    is("80"));
+  }
 }
