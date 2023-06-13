@@ -64,5 +64,10 @@ public class QueryProcessorTest {
             is("4096"));
 
   }
-  
+
+  @Test
+  public void primes() {
+    assertThat(queryProcessor.process("Which of the following numbers are primes: 84, 26, 22, 56, 83?"),
+            is("83"));
+  }
 }
