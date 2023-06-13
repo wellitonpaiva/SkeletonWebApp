@@ -53,23 +53,16 @@ public class QueryProcessorTest {
     assertThat(queryProcessor.process("What is 70 multiplied by 2?"), is("140"));
   }
 
-  
+  @Test
+  public void powerNums() {
+    assertThat(queryProcessor.process("What is 13 to the power of 97?"), is("1.1285093814137335E108"));
+  }
+
+  @Test
   public void squareAndCube() {
     assertThat(queryProcessor.process("Which of the following numbers is both a square and a cube: 4541, 3375, 1089, 4096, 4885, 59, 1362?"),
             is("4096"));
 
   }
-
-/*  @Test
-  public void asdasda() {
-    List<Integer> squares = new java.util.ArrayList<>(Collections.emptyList());
-    List<Integer> cubes = new java.util.ArrayList<>(Collections.emptyList());
-    for(int i = 0; i <= 5000; i++) {
-      squares.add(i * i);
-      cubes.add(i * i * i);
-    }
-
-    System.out.println(squares.stream().filter(cubes::contains).collect(Collectors.toList()));
-
-  }*/
+  
 }

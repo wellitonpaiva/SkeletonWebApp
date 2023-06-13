@@ -25,6 +25,10 @@ public class QueryProcessor {
           return subStrings(query);
         } else if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("multiplied by")) {
           return multiplyString(query);
+        } else if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("to the power of")) {
+          return pawarString(query);
+        } else if (query.toLowerCase().contains("which of the following numbers is both a square and a cube:")) {
+          return findCubeAndSquare(query);
         }
 
         return "";
@@ -56,9 +60,17 @@ public class QueryProcessor {
   }
 
   private static String multiplyString(String query) {
+      String s = query.replace("What is ", "").replace("?", "");
+      String[] numbers = s.split(" multiplied by ", 0);
+      int sum = Integer.parseInt(numbers[0]) * Integer.parseInt(numbers[1]);
+      return String.valueOf(sum);
+  }
+
+  private static String pawarString(String query) {
+        //What is 13 to the power of 97?
     String s = query.replace("What is ", "").replace("?", "");
-    String[] numbers = s.split(" multiplied by ", 0);
-    int sum = Integer.parseInt(numbers[0]) * Integer.parseInt(numbers[1]);
+    String[] numbers = s.split(" to the power of ", 0);
+    Double sum = Math.pow(Double.parseDouble(numbers[0]), Double.parseDouble(numbers[1]));
     return String.valueOf(sum);
   }
 
@@ -66,10 +78,10 @@ public class QueryProcessor {
     List<Integer> expectedAnswers = Arrays.asList(1, 64, 729, 4096, 15625, 46656, 117649, 262144, 531441, 1000000, 1771561, 2985984, 4826809, 7529536, 11390625, 16777216, 24137569);
     //Which of the following numbers is both a square and a cube: 4541, 3375, 1089, 4096, 4885, 59, 1362?
     String s = query.replace("Which of the following numbers is both a square and a cube: ", "").replace("?", "");
-    String[] numbers = s.split(",", 0);
+    String[] numbers = s.split(", ", 0);
     List<Integer> valid = new java.util.ArrayList<>(Collections.emptyList());
     for (String number : numbers) {
-      if(expectedAnswers.contains(number)) {
+      if(expectedAnswers.contains(Integer.parseInt(number))) {
           valid.add(Integer.valueOf(number));
       }
     }
