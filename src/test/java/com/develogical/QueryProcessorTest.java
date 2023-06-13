@@ -28,14 +28,19 @@ public class QueryProcessorTest {
 
   @Test
   public void largestNumber() throws Exception {
-    assertThat(queryProcessor.process("Which of the following numbers is the largest: 20, 28, 80?"), 
-    is("80"));
-    assertThat(queryProcessor.process("Which of the following numbers is the largest: 62, 59, 68?"), 
-    is("68"));
+    assertThat(queryProcessor.process("Which of the following numbers is the largest: 20, 28, 80?"),
+            is("80"));
+    assertThat(queryProcessor.process("Which of the following numbers is the largest: 62, 59, 68?"),
+            is("68"));
   }
 
   @Test
   public void addNums() {
-    assertThat(queryProcessor.process("What is 98 plus 57?"), is("155"));  
+    assertThat(queryProcessor.process("What is 98 plus 57?"), is("155"));
+  }
+
+  @Test
+  public void multiplyNums() {
+    assertThat(queryProcessor.process("What is 70 multiplied by 2?"), is("140"));
   }
 }
