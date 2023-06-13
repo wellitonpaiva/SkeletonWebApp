@@ -1,5 +1,10 @@
 package com.develogical;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class QueryProcessor {
 
     public String process(String query) {
@@ -15,7 +20,9 @@ public class QueryProcessor {
         } else if (query.toLowerCase().contains("which of the following numbers is the largest:")) {
           return findMax(query);
         } else if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("plus")) {
-          return addStrings(query);
+            return addStrings(query);
+        } else if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("minus")) {
+          return subStrings(query);
         } else if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("multiplied by")) {
           return multiplyString(query);
         }
@@ -41,10 +48,37 @@ public class QueryProcessor {
     return String.valueOf(sum);
   }
 
+  private static String subStrings(String query) {
+    String s = query.replace("What is ", "").replace("?", "");
+    String[] numbers = s.split(" minus ", 0);
+    int sum = Integer.parseInt(numbers[0]) - Integer.parseInt(numbers[1]);
+    return String.valueOf(sum);
+  }
+
   private static String multiplyString(String query) {
     String s = query.replace("What is ", "").replace("?", "");
     String[] numbers = s.split(" multiplied by ", 0);
     int sum = Integer.parseInt(numbers[0]) * Integer.parseInt(numbers[1]);
     return String.valueOf(sum);
   }
+
+  private static String findCubeAndSquare(String query) {
+    List<Integer> expectedAnswers = Arrays.asList(1, 64, 729, 4096, 15625, 46656, 117649, 262144, 531441, 1000000, 1771561, 2985984, 4826809, 7529536, 11390625, 16777216, 24137569);
+    //Which of the following numbers is both a square and a cube: 4541, 3375, 1089, 4096, 4885, 59, 1362?
+    String s = query.replace("Which of the following numbers is both a square and a cube: ", "").replace("?", "");
+    String[] numbers = s.split(",", 0);
+    List<Integer> valid = new java.util.ArrayList<>(Collections.emptyList());
+    for (String number : numbers) {
+      if(expectedAnswers.contains(number)) {
+          valid.add(Integer.valueOf(number));
+      }
+    }
+    if (valid.isEmpty())
+        return "";
+    else
+        return valid.stream().map(Object::toString).collect(Collectors.joining());
+  }
+
+
+
 }

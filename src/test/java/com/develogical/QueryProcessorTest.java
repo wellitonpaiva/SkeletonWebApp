@@ -6,6 +6,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class QueryProcessorTest {
 
   QueryProcessor queryProcessor = new QueryProcessor();
@@ -40,7 +44,32 @@ public class QueryProcessorTest {
   }
 
   @Test
+  public void subNums() {
+    assertThat(queryProcessor.process("What is 20 minus 61?"), is("-41"));
+  }
+
+  @Test
   public void multiplyNums() {
     assertThat(queryProcessor.process("What is 70 multiplied by 2?"), is("140"));
   }
+
+  
+  public void squareAndCube() {
+    assertThat(queryProcessor.process("Which of the following numbers is both a square and a cube: 4541, 3375, 1089, 4096, 4885, 59, 1362?"),
+            is("4096"));
+
+  }
+
+/*  @Test
+  public void asdasda() {
+    List<Integer> squares = new java.util.ArrayList<>(Collections.emptyList());
+    List<Integer> cubes = new java.util.ArrayList<>(Collections.emptyList());
+    for(int i = 0; i <= 5000; i++) {
+      squares.add(i * i);
+      cubes.add(i * i * i);
+    }
+
+    System.out.println(squares.stream().filter(cubes::contains).collect(Collectors.toList()));
+
+  }*/
 }
