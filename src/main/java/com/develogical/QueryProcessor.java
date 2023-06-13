@@ -21,6 +21,11 @@ public class QueryProcessor {
         if (max < current) max = current;
       }
       return String.valueOf(max);
+    } else if (query.toLowerCase().contains("what is") && query.toLowerCase().contains("plus")) {
+      String s = query.replace("What is ", "").replace("?", "");
+      String[] numbers = s.split(" plus ", 0); 
+      int sum = Integer.parseInt(numbers[0]) + Integer.parseInt(numbers[1]);
+      return String.valueOf(sum);
     }
 
     return "";
